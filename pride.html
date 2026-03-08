@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Belong Here — LGBTQ+ Community & Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #FF3B4E;
+    --orange: #FF8C00;
+    --yellow: #FFD700;
+    --green: #00C46A;
+    --blue: #0072FF;
+    --violet: #8B2FC9;
+    --pink: #FF69B4;
+    --white: #FFFDF7;
+    --dark: #0D0D14;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,59,78,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(0,114,255,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(139,47,201,0.15) 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  .stripes {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    display: flex;
+    z-index: 1;
+  }
+  .stripes span {
+    flex: 1;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(6px);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 1.0;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn:hover { transform: translateY(-3px); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red), var(--violet));
+    color: white;
+    box-shadow: 0 8px 30px rgba(255,59,78,0.35);
+  }
+  .btn-primary:hover { box-shadow: 0 12px 40px rgba(255,59,78,0.5); }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+    z-index: 2;
+  }
+  .scroll-hint svg { opacity: 0.4; }
+
+  /* SECTION GENERIC */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* PILLARS */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .pillar-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.25s, border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .pillar-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.18); }
+
+  .card-red::before { background: var(--red); }
+  .card-orange::before { background: var(--orange); }
+  .card-yellow::before { background: var(--yellow); }
+  .card-green::before { background: var(--green); }
+  .card-blue::before { background: var(--blue); }
+  .card-violet::before { background: var(--violet); }
+
+  .pillar-icon {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pillar-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .pillar-card p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+  }
+
+  /* QUOTE STRIP */
+  .quote-strip {
+    background: linear-gradient(135deg, rgba(255,59,78,0.12), rgba(139,47,201,0.12));
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  .quote-strip blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--white);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .quote-strip cite {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* IDENTITIES */
+  .identities-section {
+    text-align: center;
+  }
+
+  .flags-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .flag-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    transition: background 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .flag-chip:hover {
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.05);
+  }
+
+  .flag-stripe {
+    width: 24px;
+    height: 14px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .flag-stripe span { flex: 1; }
+
+  /* RESOURCES */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .resource-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.6rem;
+    text-decoration: none;
+    color: var(--white);
+    transition: transform 0.2s, border-color 0.2s;
+    display: block;
+  }
+  .resource-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+
+  .resource-card .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .resource-card h4 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .resource-card p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
+  /* AFFIRM BANNER */
+  .affirm {
+    text-align: center;
+    padding: 6rem 2rem;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139,47,201,0.2) 0%, transparent 70%);
+  }
+
+  .affirm h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .affirm p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    margin: 1.5rem auto 2.5rem;
+    max-width: 500px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  footer .rainbow-line {
+    height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--violet));
+    border-radius: 100px;
+    width: 80px;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    margin: 0 2rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="stripes">
+    <span style="background:var(--red)"></span>
+    <span style="background:var(--orange)"></span>
+    <span style="background:var(--yellow)"></span>
+    <span style="background:var(--green)"></span>
+    <span style="background:var(--blue)"></span>
+    <span style="background:var(--violet)"></span>
+  </div>
+  <div class="hero-content">
+    <div class="badge">🏳️‍🌈 LGBTQ+ Community & Support</div>
+    <h1>You <span class="gradient-text">Belong</span><br>Here.</h1>
+    <p>A celebration of love, identity, and community — in all its beautiful forms. Every person deserves to feel seen, valued, and celebrated.</p>
+    <div class="hero-cta">
+      <a href="#community" class="btn btn-primary">Explore Community</a>
+      <a href="#resources" class="btn btn-outline">Find Support</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section id="community">
+  <div class="section-label">Why Community Matters</div>
+  <h2>The Strength of<br><span class="gradient-text">Being Yourself</span></h2>
+  <p style="color:rgba(255,255,255,0.6);max-width:540px;line-height:1.8;">LGBTQ+ people have built vibrant, resilient communities that have changed the world. Here's what living authentically can mean.</p>
+
+  <div class="pillars-grid">
+    <div class="pillar-card card-red">
+      <span class="pillar-icon">💛</span>
+      <h3>Authentic Connection</h3>
+      <p>When you're free to be yourself, relationships become deeper, more honest, and more meaningful — with friends, partners, and community alike.</p>
+    </div>
+    <div class="pillar-card card-orange">
+      <span class="pillar-icon">🌱</span>
+      <h3>Personal Growth</h3>
+      <p>Embracing your identity often comes with extraordinary self-awareness, empathy, and resilience — gifts that shape a rich inner life.</p>
+    </div>
+    <div class="pillar-card card-yellow">
+      <span class="pillar-icon">🎨</span>
+      <h3>Creative Power</h3>
+      <p>LGBTQ+ people have shaped art, music, literature, fashion, and culture in ways that have moved and inspired the entire world.</p>
+    </div>
+    <div class="pillar-card card-green">
+      <span class="pillar-icon">🤝</span>
+      <h3>Found Family</h3>
+      <p>The LGBTQ+ community has a long, beautiful tradition of building chosen family — people who show up for each other unconditionally.</p>
+    </div>
+    <div class="pillar-card card-blue">
+      <span class="pillar-icon">✊</span>
+      <h3>Proud History</h3>
+      <p>From Stonewall to marriage equality, LGBTQ+ people have fought for freedom and dignity — creating a legacy of courage and progress.</p>
+    </div>
+    <div class="pillar-card card-violet">
+      <span class="pillar-icon">🌈</span>
+      <h3>Joyful Living</h3>
+      <p>Pride isn't just a parade — it's a daily practice of choosing joy, celebrating love, and refusing to shrink for anyone.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUOTE -->
+<section style="padding:4rem 2rem;max-width:900px;margin:0 auto;">
+  <div class="quote-strip">
+    <blockquote>"We deserve to experience love fully, equally, without shame and without compromise."</blockquote>
+    <cite>— Elliot Page</cite>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- IDENTITIES -->
+<section class="identities-section" id="identities">
+  <div class="section-label">All Identities Welcome</div>
+  <h2>Every Color of<br>the Spectrum</h2>
+  <p style="color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto;line-height:1.8;">The LGBTQ+ community is wonderfully diverse. Every identity is valid and worthy of celebration.</p>
+
+  <div class="flags-row">
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#FF0018"></span><span style="background:#FFA52C"></span>
+        <span style="background:#FFFF41"></span><span style="background:#008018"></span>
+        <span style="background:#0000F9"></span><span style="background:#8B00FF"></span>
+      </div>
+      Rainbow / Gay
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#FF76A4"></span><span style="background:#FF76A4"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#C8AAFF"></span>
+        <span style="background:#C8AAFF"></span>
+      </div>
+      Bisexual
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#55CDFC"></span><span style="background:#F7A8B8"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#F7A8B8"></span>
+        <span style="background:#55CDFC"></span>
+      </div>
+      Transgender
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#B57EDC"></span><span style="background:#FFFFFF"></span>
+        <span style="background:#4A8123"></span><span style="background:#000000"></span>
+        <span style="background:#B57EDC"></span>
+      </div>
+      Non-binary
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#3D1A78"></span><span style="background:#FFFFFF"></span>
+        <span style="background:#078D70"></span><span style="background:#3D1A78"></span>
+        <span style="background:#3D1A78"></span>
+      </div>
+      Genderqueer
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#000000"></span><span style="background:#A4A4A4"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#810081"></span>
+        <span style="background:#000000"></span>
+      </div>
+      Asexual
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#FFD800"></span><span style="background:#FFFFFF"></span>
+        <span style="background:#9C59D1"></span><span style="background:#000000"></span>
+        <span style="background:#FFD800"></span>
+      </div>
+      Intersex
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#FF76A4"></span><span style="background:#FF76A4"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#FF76A4"></span>
+        <span style="background:#FF76A4"></span>
+      </div>
+      Lesbian
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#FFBF00"></span><span style="background:#FFBF00"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#9A4F96"></span>
+        <span style="background:#000000"></span>
+      </div>
+      Pansexual
+    </div>
+    <div class="flag-chip">
+      <div class="flag-stripe">
+        <span style="background:#3D9140"></span><span style="background:#A8D379"></span>
+        <span style="background:#FFFFFF"></span><span style="background:#A9A9A9"></span>
+        <span style="background:#000000"></span>
+      </div>
+      Queer
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-label">Support & Resources</div>
+  <h2>You're <span class="gradient-text">Not Alone</span></h2>
+  <p style="color:rgba(255,255,255,0.6);max-width:500px;line-height:1.8;">Whether you need crisis support, community, or just someone to talk to — help is always available.</p>
+
+  <div class="resources-grid">
+    <div class="resource-card">
+      <div class="tag">Crisis Support</div>
+      <h4>The Trevor Project</h4>
+      <p>24/7 crisis intervention and suicide prevention for LGBTQ+ young people. Call, text, or chat.</p>
+    </div>
+    <div class="resource-card">
+      <div class="tag">Crisis Hotline</div>
+      <h4>Trans Lifeline</h4>
+      <p>A peer support hotline staffed by trans people, for trans people in crisis or distress.</p>
+    </div>
+    <div class="resource-card">
+      <div class="tag">National Org</div>
+      <h4>PFLAG</h4>
+      <p>Support, education, and advocacy for LGBTQ+ people, their parents, families, and allies.</p>
+    </div>
+    <div class="resource-card">
+      <div class="tag">Youth</div>
+      <h4>GLSEN</h4>
+      <p>Creating safe and affirming schools for LGBTQ+ students across the United States.</p>
+    </div>
+    <div class="resource-card">
+      <div class="tag">Legal Rights</div>
+      <h4>Lambda Legal</h4>
+      <p>Pursuing litigation and public policy to advance civil rights of LGBTQ+ people nationwide.</p>
+    </div>
+    <div class="resource-card">
+      <div class="tag">Community</div>
+      <h4>It Gets Better Project</h4>
+      <p>Uplifting, empowering, and connecting LGBTQ+ youth around the world through storytelling.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AFFIRM BANNER -->
+<div class="affirm">
+  <h2>Love is <span class="gradient-text">Love</span><br>is Love.</h2>
+  <p>No matter who you are, who you love, or how you identify — you are worthy of joy, community, and a full life.</p>
+  <a href="#community" class="btn btn-primary">🏳️‍🌈 Celebrate With Us</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="rainbow-line"></div>
+  <p>Made with pride. Every identity is valid. Every person belongs. 🏳️‍🌈🏳️‍⚧️</p>
+</footer>
+
+</body>
+</html>
